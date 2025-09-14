@@ -1,6 +1,7 @@
-import { ShoppingCart, Search, Menu, User } from "lucide-react";
+import { ShoppingCart, Search, Menu, User, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useState } from "react";
 
 interface HeaderProps {
   cartItemCount?: number;
@@ -8,6 +9,7 @@ interface HeaderProps {
 }
 
 const Header = ({ cartItemCount = 0, onCartClick }: HeaderProps) => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
@@ -64,12 +66,57 @@ const Header = ({ cartItemCount = 0, onCartClick }: HeaderProps) => {
             <span className="sr-only">Shopping cart</span>
           </Button>
 
-          <Button variant="ghost" size="icon" className="md:hidden">
-            <Menu className="h-5 w-5" />
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="md:hidden"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
             <span className="sr-only">Menu</span>
           </Button>
         </div>
       </div>
+
+      {/* Mobile Navigation */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden border-t bg-background/95 backdrop-blur">
+          <nav className="container py-4 space-y-4">
+            <a 
+              href="#" 
+              className="block text-sm font-medium text-foreground hover:text-primary transition-colors"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Shop
+            </a>
+            <a 
+              href="#" 
+              className="block text-sm font-medium text-foreground hover:text-primary transition-colors"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Categories
+            </a>
+            <a 
+              href="#" 
+              className="block text-sm font-medium text-foreground hover:text-primary transition-colors"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              About
+            </a>
+            <a 
+              href="#" 
+              className="block text-sm font-medium text-foreground hover:text-primary transition-colors"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Contact
+            </a>
+          </nav>
+        </div>
+      )}
     </header>
   );
 };
