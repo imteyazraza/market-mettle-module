@@ -10,8 +10,17 @@ interface HeaderProps {
 
 const Header = ({ cartItemCount = 0, onCartClick }: HeaderProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 relative">
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
         <div className="flex items-center space-x-2">
@@ -70,7 +79,7 @@ const Header = ({ cartItemCount = 0, onCartClick }: HeaderProps) => {
             variant="ghost" 
             size="icon" 
             className="md:hidden"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            onClick={toggleMobileMenu}
           >
             {isMobileMenuOpen ? (
               <X className="h-5 w-5" />
@@ -84,33 +93,33 @@ const Header = ({ cartItemCount = 0, onCartClick }: HeaderProps) => {
 
       {/* Mobile Navigation */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t bg-background/95 backdrop-blur">
-          <nav className="container py-4 space-y-4">
+        <div className="md:hidden absolute top-full left-0 right-0 border-t bg-background/95 backdrop-blur shadow-lg">
+          <nav className="container py-6 space-y-4">
             <a 
               href="#" 
-              className="block text-sm font-medium text-foreground hover:text-primary transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
+              className="block text-sm font-medium text-foreground hover:text-primary transition-colors py-2"
+              onClick={closeMobileMenu}
             >
               Shop
             </a>
             <a 
               href="#" 
-              className="block text-sm font-medium text-foreground hover:text-primary transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
+              className="block text-sm font-medium text-foreground hover:text-primary transition-colors py-2"
+              onClick={closeMobileMenu}
             >
               Categories
             </a>
             <a 
               href="#" 
-              className="block text-sm font-medium text-foreground hover:text-primary transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
+              className="block text-sm font-medium text-foreground hover:text-primary transition-colors py-2"
+              onClick={closeMobileMenu}
             >
               About
             </a>
             <a 
               href="#" 
-              className="block text-sm font-medium text-foreground hover:text-primary transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
+              className="block text-sm font-medium text-foreground hover:text-primary transition-colors py-2"
+              onClick={closeMobileMenu}
             >
               Contact
             </a>
